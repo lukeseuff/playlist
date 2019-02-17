@@ -4,7 +4,7 @@ export default class Index extends Component {
   render() {
     return (
       <div>
-        <h1>HOWDY</h1>
+        <h1>HAMBURGER?</h1>
       </div>
     )
   }
