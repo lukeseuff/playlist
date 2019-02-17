@@ -20,6 +20,7 @@
   "homepage": "https://github.com/lukeseuff/playlist#readme",
   "dependencies": {
     "express": "^4.16.4",
+    "isomorphic-unfetch": "^3.0.0",
     "next": "latest",
     "react": "^16.8.2",
     "react-dom": "^16.8.2"
