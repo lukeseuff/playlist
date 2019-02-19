@@ -6,7 +6,7 @@ import ShuffleButton from '../../presentation/player/shuffle'
 import Playlist from './playlist'
 import getConfig from 'next/config'
 
-const playlist = require('../../lib/playlist')
+const playlist = require('../../lib/client/playlist')
 
 const {publicRuntimeConfig} = getConfig()
 
@@ -65,7 +65,8 @@ class Player extends React.Component {
         <div>
           <Playlist videos={this.state.videos}
                     currentVideo={this.state.currentVideo}
-                    selectVideo={this.selectVideo} />
+                    selectVideo={this.selectVideo}
+                    playlistId={this.state.id} />
         </div>
         <style jsx>{`
           .content-scroll {
