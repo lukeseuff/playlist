@@ -7,7 +7,7 @@ const format = require('../lib/server/format')
 router.get('/search', function (req, res) {
   res.set('Access-Control-Allow-Origin', 'localhost')
 
-  search(req.query.playlist).then((results) => {
+  search(req.query.search_query).then((results) => {
     res.json(results)
   }).catch((err) => {
     console.log(err)
@@ -16,7 +16,7 @@ router.get('/search', function (req, res) {
 })
 
 
-router.get('/playlist', function (req, res) {
+router.get('/get', function (req, res) {
   res.set('Access-Control-Allow-Origin', 'localhost')
 
   request.getPlaylistItem(req.query.id).then((items) => {
