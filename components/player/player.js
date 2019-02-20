@@ -5,6 +5,7 @@ import ForwardButton from '../../presentation/player/forward'
 import ShuffleButton from '../../presentation/player/shuffle'
 import Playlist from './playlist'
 import getConfig from 'next/config'
+import request from '../../lib/client/request'
 
 const playlist = require('../../lib/client/playlist')
 
@@ -46,9 +47,9 @@ class Player extends React.Component {
   selectVideo = (index) => this.setState(playlist.selectVideo(this.state, index))
 
   async fetchPlaylist(id) {
-    // const response = await axios.get(publicRuntimeConfig.backend + '/playlist?id=' + id)
-    // const videos = response['data']
-    // this.setState(playlist.load(this.state, videos, id))
+    request.playlistGet(window.location.origin, id, (videos) => {
+      this.setState(playlist.load(this.state, videos, id))
+    })
   }
 
   render() {

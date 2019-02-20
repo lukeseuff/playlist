@@ -1,6 +1,7 @@
 import React from 'react'
 import SearchList from '../../presentation/aside/list'
 import getConfig from 'next/config'
+import request from '../../lib/client/request'
 
 const {publicRuntimeConfig} = getConfig()
 
@@ -15,18 +16,18 @@ class Search extends React.Component {
     this.listSearchResults = this.listSearchResults.bind(this)
   }
 
-  async listSearchResults(text) {
-    // const searchResults = await axios.get(publicRuntimeConfig.backend + '/search?playlist=' + text)
-    //
-    // if (searchResults.data['keyword_result'] === undefined)
-    //   searchResults.data['keyword_result'] = []
-    // if (searchResults.data['id_result'] === undefined)
-    //   searchResults.data['id_result'] = []
-    //
-    // this.setState({
-    //   keywordResults: searchResults.data['keyword_result'],
-    //   idResults: searchResults.data['id_result'],
-    // })
+  async listSearchResults(query) {
+    request.playlistSearch(window.location.origin, query, (results) => {
+      if (results['keyword_result'] === undefined)
+        results['keyword_result'] = []
+      if (results['id_result'] === undefined)
+        results['id_result'] = []
+
+      this.setState({
+        keywordResults: results['keyword_result'],
+        idResults: results['id_result'],
+      })
+    })
   }
 
   handleChange(event) {

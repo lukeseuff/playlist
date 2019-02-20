@@ -12,7 +12,7 @@ class Playlist extends React.Component {
         {this.props.videos.map((item, index) =>
           <PlaylistItem
           isCurrent={index === this.props.currentVideo}
-          key={`${props.playlistId}${item.id}${item.position}`}
+          key={`${this.props.playlistId}${item.id}${item.position}`}
           position={item.position}
           id={item.id}
           thumbnail={item.thumbnail}

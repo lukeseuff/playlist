@@ -4,13 +4,25 @@ import Aside from '../components/aside/aside'
 import Player from '../components/player/player'
 
 export default class Index extends Component {
+  constructor (props) {
+    super(props)
+    this.state = {}
+    this.onSelectPlaylist = this.onSelectPlaylist.bind(this)
+  }
+
+  onSelectPlaylist(id) {
+    this.setState({
+      playlistId: id
+    })
+  }
+
   render() {
     return (
       <div>
         <Header />
         <div className="content">
-          <Aside />
-          <Player />
+          <Aside onSelectPlaylist={this.onSelectPlaylist} />
+          <Player currentPlaylist={this.state.playlistId} />
         </div>
         <style jsx global>{`
             html, body, div, span, applet, object, iframe,
