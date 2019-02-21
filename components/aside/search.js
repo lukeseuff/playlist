@@ -1,10 +1,6 @@
 import React from 'react'
 import SearchList from '../../presentation/aside/list'
-import getConfig from 'next/config'
 import request from '../../lib/client/request'
-
-const {publicRuntimeConfig} = getConfig()
-
 
 class Search extends React.Component {
   constructor(props) {

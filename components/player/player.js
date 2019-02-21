@@ -4,12 +4,9 @@ import BackButton from '../../presentation/player/back'
 import ForwardButton from '../../presentation/player/forward'
 import ShuffleButton from '../../presentation/player/shuffle'
 import Playlist from './playlist'
-import getConfig from 'next/config'
 import request from '../../lib/client/request'
 
 const playlist = require('../../lib/client/playlist')
-
-const {publicRuntimeConfig} = getConfig()
 
 class Player extends React.Component {
   constructor(props) {
