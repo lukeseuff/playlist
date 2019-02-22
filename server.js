@@ -1,7 +1,11 @@
 const express = require('express')
 const next = require('next')
+const bodyParser = require('body-parser')
 const playlist = require('./routes/playlist')
 const admin = require('firebase-admin')
+const session = require('express-session')
+const FileStore = require('session-file-store')(session)
+
 
 const port = process.env.PORT || 3000
 const dev = process.env.NODE_ENV !== 'production'
@@ -18,6 +22,19 @@ const firebase = admin.initializeApp(
 
 app.prepare().then(() => {
   const server = express()
+
+  server.use(bodyParser.json())
+  server.use(
+    session({
+      secret: 'gesundheit',
+      saveUninitialized: true,
+      // store: new FileStore({ path: '/tmp/sessions', secret: 'gesundheit' }),
+      resave: false,
+      rolling: true,
+      httpOnly: true,
+      cookie: { maxAge: 604800000 } // week
+    })
+  )
 
   server.use((req, res, next) => {
     req.firebaseServer = firebase
@@ -38,6 +55,11 @@ app.prepare().then(() => {
             })
             .then(decodedToken => res.json({ status: true, decodedToken }))
             .catch(error => res.json({ error }))
+  })
+
+  server.post('/api/logout', (req, res) => {
+    req.session.decodedToken = null
+    res.json({ status: true })
   })
 
   server.get('*', (req, res) => {

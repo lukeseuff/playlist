@@ -1,6 +1,13 @@
-function Header () {
+function Header (props) {
   return (
     <header>
+      <div className="login">
+        {props.user ? (
+          <button onClick={props.handleLogout}>logout</button>
+        ) : (
+          <button onClick={props.handleLogin}>login</button>
+        )}
+      </div>
       <style jsx>{`
         header {
           position: fixed;
@@ -8,6 +15,10 @@ function Header () {
           width: 100%;
           top: 0;
           background-color: black;
+        }
+
+        .login {
+          float: right;
         }
       `}</style>
     </header>
