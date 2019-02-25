@@ -4,7 +4,7 @@
   "description": "\"# playlist\"",
   "main": "server.js",
   "scripts": {
-    "dev": "nodemon server.js -w server.js lib/server",
+    "dev": "nodemon server.js -w server.js lib/server routes",
     "build": "next build",
     "start": "NODE_ENV=production node server.js"
   },

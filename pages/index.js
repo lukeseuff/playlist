@@ -13,14 +13,17 @@ export default class Index extends Component {
     super(props)
     this.state = {
       user: this.props.user,
-      value: '',
-      messages: this.props.messages
+      playlists: this.props.playlists || {},
+      showSaved: true
     }
     this.onSelectPlaylist = this.onSelectPlaylist.bind(this)
     this.addDbListener = this.addDbListener.bind(this)
     this.removeDbListener = this.removeDbListener.bind(this)
     this.handleLogin = this.handleLogin.bind(this)
     this.handleLogout = this.handleLogout.bind(this)
+    this.onSavePlaylist = this.onSavePlaylist.bind(this)
+    this.onDeletePlaylist = this.onDeletePlaylist.bind(this)
+    this.onSwitchAside = this.onSwitchAside.bind(this)
   }
 
   componentDidMount() {
@@ -58,13 +61,13 @@ export default class Index extends Component {
   addDbListener() {
     var db = firebase.firestore()
 
-    let unsubscribe = db.collection('messages').onSnapshot(
+    let unsubscribe = db.collection(`profile/${this.state.user.uid}/playlists`).onSnapshot(
       querySnapshot => {
-        var messages = {}
+        var playlists = {}
         querySnapshot.forEach(function (doc) {
-          messages[doc.id] = doc.data()
+          playlists[doc.id] = doc.data()
         })
-        if (messages) this.setState({ messages })
+        if (playlists) this.setState({ playlists })
       },
       error => {
         console.error(error)
@@ -74,7 +77,6 @@ export default class Index extends Component {
   }
 
   removeDbListener () {
-    // firebase.database().ref('messages').off()
     if (this.state.unsubscribe) {
       this.state.unsubscribe()
     }
@@ -88,10 +90,36 @@ export default class Index extends Component {
     firebase.auth().signOut()
   }
 
-  onSelectPlaylist(id) {
+  onSelectPlaylist (id) {
     this.setState({
       playlistId: id
     })
+  }
+
+  onDeletePlaylist (playlistId) {
+    var db = firebase.firestore()
+
+    if (this.state.user) {
+      db.collection(`profile/${this.state.user.uid}/playlists`)
+        .doc(playlistId)
+        .delete()
+    }
+  }
+
+  onSavePlaylist (playlistId, title) {
+    var db = firebase.firestore()
+
+    if (this.state.user) {
+      db.collection(`profile/${this.state.user.uid}/playlists`)
+        .doc(playlistId)
+        .set({
+          title: title
+        })
+    }
+  }
+
+  onSwitchAside () {
+    this.setState({ showSaved: !this.state.showSaved })
   }
 
   render() {
@@ -99,9 +127,16 @@ export default class Index extends Component {
       <div>
         <Header handleLogin={this.handleLogin}
                 handleLogout={this.handleLogout}
-                user={this.state.user} />
+                user={this.state.user}
+                onSwitchAside={this.onSwitchAside} />
         <div className="content">
-          <Aside onSelectPlaylist={this.onSelectPlaylist} />
+          <Aside onSelectPlaylist={this.onSelectPlaylist}
+                 onSavePlaylist={this.onSavePlaylist}
+                 onDeletePlaylist={this.onDeletePlaylist}
+                 savedPlaylists={Object.keys(this.state.playlists).map((id) => {
+                   return Object.assign({id: id}, this.state.playlists[id])
+                 })}
+                 showSaved={this.state.showSaved} />
           <Player currentPlaylist={this.state.playlistId} />
         </div>
         <style jsx global>{`

@@ -1,6 +1,9 @@
 function Header (props) {
   return (
     <header>
+      <div className="switchAside">
+        <button onClick={props.onSwitchAside}>show/hide saved</button>
+      </div>
       <div className="login">
         {props.user ? (
           <button onClick={props.handleLogout}>logout</button>
@@ -19,6 +22,10 @@ function Header (props) {
 
         .login {
           float: right;
+        }
+
+        .switchAside {
+          float: left;
         }
       `}</style>
     </header>
