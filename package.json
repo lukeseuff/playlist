@@ -4,7 +4,7 @@
   "description": "\"# playlist\"",
   "main": "server.js",
   "scripts": {
-    "dev": "nodemon server.js",
+    "dev": "nodemon server.js -w server.js lib/server routes",
     "build": "next build",
     "start": "NODE_ENV=production node server.js"
   },
@@ -20,6 +20,7 @@
   "homepage": "https://github.com/lukeseuff/playlist#readme",
   "dependencies": {
     "express": "^4.16.4",
+    "express-session": "^1.15.6",
     "firebase": "^5.8.3",
     "firebase-admin": "^7.0.0",
     "googleapis": "^37.2.0",

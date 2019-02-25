@@ -1,4 +1,9 @@
 import React, { Component } from 'react'
+import firebase from 'firebase/app'
+import 'firebase/auth'
+import 'firebase/firestore'
+import 'isomorphic-unfetch'
+import clientCredentials from '../config/firebase/client'
 import Header from '../components/header'
 import Aside from '../components/aside/aside'
 import Player from '../components/player/player'
@@ -6,22 +11,132 @@ import Player from '../components/player/player'
 export default class Index extends Component {
   constructor (props) {
     super(props)
-    this.state = {}
+    this.state = {
+      user: this.props.user,
+      playlists: this.props.playlists || {},
+      showSaved: true
+    }
     this.onSelectPlaylist = this.onSelectPlaylist.bind(this)
+    this.addDbListener = this.addDbListener.bind(this)
+    this.removeDbListener = this.removeDbListener.bind(this)
+    this.handleLogin = this.handleLogin.bind(this)
+    this.handleLogout = this.handleLogout.bind(this)
+    this.onSavePlaylist = this.onSavePlaylist.bind(this)
+    this.onDeletePlaylist = this.onDeletePlaylist.bind(this)
+    this.onSwitchAside = this.onSwitchAside.bind(this)
   }
 
-  onSelectPlaylist(id) {
+  componentDidMount() {
+    firebase.initializeApp(clientCredentials)
+
+    if (this.state.user) this.addDbListener()
+
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        this.setState({ user: user })
+        return user
+          .getIdToken()
+          .then(token => {
+            // eslint-disable-next-line no-undef
+            return fetch(`${window.location.origin}/api/login`, {
+              method: 'POST',
+              // eslint-disable-next-line no-undef
+              headers: new Headers({ 'Content-Type': 'application/json' }),
+              credentials: 'same-origin',
+              body: JSON.stringify({ token })
+            })
+          })
+          .then(res => this.addDbListener())
+      } else {
+        this.setState({ user: null })
+        // eslint-disable-next-line no-undef
+        fetch(`${window.location.origin}/api/logout`, {
+          method: 'POST',
+          credentials: 'same-origin'
+        }).then(() => this.removeDbListener())
+      }
+    })
+  }
+
+  addDbListener() {
+    var db = firebase.firestore()
+
+    let unsubscribe = db.collection(`profile/${this.state.user.uid}/playlists`).onSnapshot(
+      querySnapshot => {
+        var playlists = {}
+        querySnapshot.forEach(function (doc) {
+          playlists[doc.id] = doc.data()
+        })
+        if (playlists) this.setState({ playlists })
+      },
+      error => {
+        console.error(error)
+      }
+    )
+    this.setState({ unsubscribe })
+  }
+
+  removeDbListener () {
+    if (this.state.unsubscribe) {
+      this.state.unsubscribe()
+    }
+  }
+
+  handleLogin () {
+    firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider())
+  }
+
+  handleLogout () {
+    firebase.auth().signOut()
+  }
+
+  onSelectPlaylist (id) {
     this.setState({
       playlistId: id
     })
   }
 
+  onDeletePlaylist (playlistId) {
+    var db = firebase.firestore()
+
+    if (this.state.user) {
+      db.collection(`profile/${this.state.user.uid}/playlists`)
+        .doc(playlistId)
+        .delete()
+    }
+  }
+
+  onSavePlaylist (playlistId, title) {
+    var db = firebase.firestore()
+
+    if (this.state.user) {
+      db.collection(`profile/${this.state.user.uid}/playlists`)
+        .doc(playlistId)
+        .set({
+          title: title
+        })
+    }
+  }
+
+  onSwitchAside () {
+    this.setState({ showSaved: !this.state.showSaved })
+  }
+
   render() {
     return (
       <div>
-        <Header />
+        <Header handleLogin={this.handleLogin}
+                handleLogout={this.handleLogout}
+                user={this.state.user}
+                onSwitchAside={this.onSwitchAside} />
         <div className="content">
-          <Aside onSelectPlaylist={this.onSelectPlaylist} />
+          <Aside onSelectPlaylist={this.onSelectPlaylist}
+                 onSavePlaylist={this.onSavePlaylist}
+                 onDeletePlaylist={this.onDeletePlaylist}
+                 savedPlaylists={Object.keys(this.state.playlists).map((id) => {
+                   return Object.assign({id: id}, this.state.playlists[id])
+                 })}
+                 showSaved={this.state.showSaved} />
           <Player currentPlaylist={this.state.playlistId} />
         </div>
         <style jsx global>{`

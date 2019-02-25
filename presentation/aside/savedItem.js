@@ -1,11 +1,11 @@
 import React from 'react'
 
-class SearchItem extends React.Component {
+class SavedItem extends React.Component {
   constructor (props) {
     super(props)
 
     this.handleSelectPlaylist = this.handleSelectPlaylist.bind(this)
-    this.handleSavePlaylist = this.handleSavePlaylist.bind(this)
+    this.handleDeleteItem = this.handleDeleteItem.bind(this)
   }
 
   handleSelectPlaylist(event) {
@@ -13,23 +13,23 @@ class SearchItem extends React.Component {
     this.props.onSelectPlaylist(this.props.playlist)
   }
 
-  handleSavePlaylist(event) {
+  handleDeleteItem(event) {
     event.preventDefault()
-    this.props.onSavePlaylist(this.props.playlist, this.props.title)
+    this.props.onDeletePlaylist(this.props.playlist)
   }
 
   render () {
     return (
       <div className="item">
         <div className="item-image">
-          <img src={this.props.thumbnail} />
+          {/*<img src={this.props.thumbnail} />*/}
         </div>
         <div className="item-info">
           <p className="title">{this.props.title}</p>
-          <p className="channel">{this.props.channel}</p>
+          {/*<p className="channel">{this.props.channel}</p>*/}
           <div>
             <button onClick={this.handleSelectPlaylist}>play</button>
-            <button onClick={this.handleSavePlaylist}>save</button>
+            <button onClick={this.handleDeleteItem}>delete</button>
           </div>
         </div>
         <style jsx>{`
@@ -60,4 +60,4 @@ class SearchItem extends React.Component {
   }
 }
 
-export default SearchItem
+export default SavedItem

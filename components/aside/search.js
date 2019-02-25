@@ -48,6 +48,7 @@ class Search extends React.Component {
           keywordResults={this.state.keywordResults}
           idResults={this.state.idResults}
           onSelectPlaylist={this.props.onSelectPlaylist}
+          onSavePlaylist={this.props.onSavePlaylist}
           />
         <style jsx>{`
             form {
