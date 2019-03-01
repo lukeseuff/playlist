@@ -1,5 +1,5 @@
 import React from 'react'
-import PlaylistItem from '../../presentation/player/playlistItem'
+import PlaylistItem from './playlistItem'
 
 class Playlist extends React.Component {
   constructor(props) {

@@ -52,7 +52,7 @@ class Player extends React.Component {
 
   render() {
     return (
-      <div className="content-scroll">
+      <div className="player">
         <Video currentVideo={this.state.videos[this.state.currentVideo]}
                forward={this.forward} />
         <div className="controls">
@@ -85,7 +85,7 @@ class Player extends React.Component {
             </div>
           </div>
         </div>
-        <div>
+        <div className="content-scroll">
           <Playlist videos={this.state.videos}
                     currentVideo={this.state.currentVideo}
                     selectVideo={this.selectVideo}
@@ -93,6 +93,7 @@ class Player extends React.Component {
         </div>
         <style jsx>{`
           .controls {
+            flex: 0 0 60px;
             display: flex;
             width: 250px;
             height: 60px;
@@ -109,14 +110,17 @@ class Player extends React.Component {
             padding: 0 10px;
           }
 
-          .content-scroll {
+          .player {
             overflow: hidden;
+            display: flex;
             flex: 1;
+            flex-direction: column;
             background-color: blue;
             height: calc(100vh - 60px);
           }
 
           .content-scroll {
+            overflow: hidden;
             overflow-y: scroll;
           }
 

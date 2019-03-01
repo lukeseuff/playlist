@@ -14,15 +14,17 @@ class PlaylistItem extends React.Component {
     return (
       <div className={'item ' + (this.props.isCurrent ? 'current' : '')}
            onClick={this.handleClick}>
-        <p>{this.props.position}</p>
-        <p>{this.props.id}</p>
-        <p>{this.props.thumbnail}</p>
-        <p>{this.props.title}</p>
+        <img src={this.props.thumbnail} />
+        <p className="title">{this.props.title}</p>
         <style jsx>{`
           .item {
+            display: flex;
+            align-items: center;
             background-color: #d3d3d3;
-            padding: 5px;
             border-top: solid 1px #000;
+          }
+          .title {
+            margin-left: 10px;
           }
           .current {
             background-color: #2de697;

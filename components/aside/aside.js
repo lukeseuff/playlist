@@ -104,9 +104,6 @@ class Aside extends Component {
 
           .content-scroll {
             overflow: hidden;
-          }
-
-          .content-scroll {
             overflow-y: scroll;
           }
 

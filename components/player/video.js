@@ -64,6 +64,8 @@ class Video extends React.Component {
         <style jsx>{`
           #player {
             width: 100%;
+            height: 250px;
+            flex: 0 0 250px;
           }
         `}</style>
       </div>
