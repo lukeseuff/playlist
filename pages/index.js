@@ -14,8 +14,9 @@ export default class Index extends Component {
     this.state = {
       user: this.props.user,
       playlists: this.props.playlists || {},
-      showSaved: true
+      showAside: true
     }
+
     this.onSelectPlaylist = this.onSelectPlaylist.bind(this)
     this.addDbListener = this.addDbListener.bind(this)
     this.removeDbListener = this.removeDbListener.bind(this)
@@ -106,20 +107,22 @@ export default class Index extends Component {
     }
   }
 
-  onSavePlaylist (playlistId, title) {
+  onSavePlaylist (playlistId, title, channel, thumbnail) {
     var db = firebase.firestore()
 
     if (this.state.user) {
       db.collection(`profile/${this.state.user.uid}/playlists`)
         .doc(playlistId)
         .set({
-          title: title
+          title: title,
+          channel: channel,
+          thumbnail: thumbnail
         })
     }
   }
 
   onSwitchAside () {
-    this.setState({ showSaved: !this.state.showSaved })
+    this.setState({ showAside: !this.state.showAside })
   }
 
   render() {
@@ -127,8 +130,9 @@ export default class Index extends Component {
       <div>
         <Header handleLogin={this.handleLogin}
                 handleLogout={this.handleLogout}
-                user={this.state.user}
-                onSwitchAside={this.onSwitchAside} />
+                loggedIn={this.state.user !== null}
+                onSwitchAside={this.onSwitchAside}
+                showAside={this.state.showAside} />
         <div className="content">
           <Aside onSelectPlaylist={this.onSelectPlaylist}
                  onSavePlaylist={this.onSavePlaylist}
@@ -136,7 +140,7 @@ export default class Index extends Component {
                  savedPlaylists={Object.keys(this.state.playlists).map((id) => {
                    return Object.assign({id: id}, this.state.playlists[id])
                  })}
-                 showSaved={this.state.showSaved} />
+                 showAside={this.state.showAside} />
           <Player currentPlaylist={this.state.playlistId} />
         </div>
         <style jsx global>{`

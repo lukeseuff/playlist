@@ -1,5 +1,5 @@
 import React from 'react'
-import SearchList from '../../presentation/aside/list'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import request from '../../lib/client/request'
 
 class Search extends React.Component {
@@ -22,41 +22,50 @@ class Search extends React.Component {
       this.setState({
         keywordResults: results['keyword_result'],
         idResults: results['id_result'],
+      }, () => {
+        let results = this.state.keywordResults
+        results.push(...this.state.idResults)
+        this.props.displayPlaylists(results)
       })
     })
   }
 
   handleChange(event) {
-    this.setState({value: event.target.value})
+    this.setState({ value: event.target.value })
   }
 
   handleSubmit(event) {
     event.preventDefault()
     this.listSearchResults(this.state.value)
+    this.props.onSelectMenuItem('search')
   }
 
   render() {
     return (
-      <div>
-        <form
-          onSubmit={this.handleSubmit}
-          >
-          <input type="text" value={this.state.value} onChange={this.handleChange} />
-          <button type="submit">search</button>
+      <div className="container">
+        <form onSubmit={this.handleSubmit}>
+          {/*<div className="icon">
+            <FontAwesomeIcon icon="search" color="#dad8de" />
+          </div>*/}
+          <input type="text"
+                 value={this.state.value}
+                 onChange={this.handleChange}
+                 placeholder="search" />
         </form>
-        <SearchList
-          keywordResults={this.state.keywordResults}
-          idResults={this.state.idResults}
-          onSelectPlaylist={this.props.onSelectPlaylist}
-          onSavePlaylist={this.props.onSavePlaylist}
-          />
         <style jsx>{`
-            form {
-              display: flex;
+            .container {
+              width: 100%;
             }
 
-            form input {
-              flex: 1;
+            form {
+              padding: 15px 20px 25px 20px;
+            }
+
+            input {
+              width: 100%;
+              padding: 5px 5px;
+              margin-left: -5px;
+              border: 0;
             }
         `}</style>
       </div>
