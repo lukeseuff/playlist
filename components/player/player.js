@@ -1,8 +1,6 @@
 import React from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Video from './video'
-import BackButton from '../../presentation/player/back'
-import ForwardButton from '../../presentation/player/forward'
-import ShuffleButton from '../../presentation/player/shuffle'
 import Playlist from './playlist'
 import request from '../../lib/client/request'
 
@@ -33,10 +31,13 @@ class Player extends React.Component {
   }
 
   shuffle = () => {
+    if (!this.state.shuffled) {
+      this.setState(playlist.shuffle(this.state))
+    }
+  }
+  sort = () => {
     if (this.state.shuffled) {
       this.setState(playlist.sort(this.state))
-    } else {
-      this.setState(playlist.shuffle(this.state))
     }
   }
   forward = () => this.setState(playlist.skipForward(this.state))
@@ -54,11 +55,35 @@ class Player extends React.Component {
       <div className="content-scroll">
         <Video currentVideo={this.state.videos[this.state.currentVideo]}
                forward={this.forward} />
-        <div>
-          <BackButton skipBack={this.back} />
-          <ShuffleButton shuffled={this.state.shuffled}
-                         updateShuffle={this.shuffle} />
-          <ForwardButton skipForward={this.forward} />
+        <div className="controls">
+          <div className="skip control-group">
+            <div className="control-item">
+              <FontAwesomeIcon icon="backward"
+                               color="#dad8de"
+                               size="2x"
+                               onClick={this.back} />
+            </div>
+            <div className="control-item">
+              <FontAwesomeIcon icon="forward"
+                               color="#dad8de"
+                               size="2x"
+                               onClick={this.forward} />
+            </div>
+          </div>
+          <div className="order control-group">
+            <div className="control-item">
+              <FontAwesomeIcon icon="random"
+                               color="#dad8de"
+                               size="2x"
+                               onClick={this.shuffle} />
+            </div>
+            <div className="control-item">
+              <FontAwesomeIcon icon="long-arrow-alt-right"
+                               color="#dad8de"
+                               size="2x"
+                               onClick={this.sort} />
+            </div>
+          </div>
         </div>
         <div>
           <Playlist videos={this.state.videos}
@@ -67,6 +92,23 @@ class Player extends React.Component {
                     playlistId={this.state.id} />
         </div>
         <style jsx>{`
+          .controls {
+            display: flex;
+            width: 250px;
+            height: 60px;
+            margin: 0 auto;
+            justify-content: space-between;
+            align-items: center;
+          }
+
+          .control-group {
+            display: flex;
+          }
+
+          .control-item {
+            padding: 0 10px;
+          }
+
           .content-scroll {
             overflow: hidden;
             flex: 1;
