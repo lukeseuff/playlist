@@ -1,5 +1,5 @@
 module.exports = {
   publicRuntimeConfig: {
-    clientCredentials: process.env.FIREBASE_CLIENT_CREDENTIALS
+    clientCredentials: JSON.parse(process.env.FIREBASE_CLIENT_CREDENTIALS)
   }
 }
