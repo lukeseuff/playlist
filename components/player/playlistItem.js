@@ -20,14 +20,16 @@ class PlaylistItem extends React.Component {
           .item {
             display: flex;
             align-items: center;
-            background-color: #d3d3d3;
-            border-top: solid 1px #000;
+            background-color: #191D2B;
           }
           .title {
             margin-left: 10px;
           }
           .current {
-            background-color: #2de697;
+            background-color: #F9F9F9;
+          }
+          .current p {
+            color: #06070C;
           }
           `}
         </style>

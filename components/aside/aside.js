@@ -72,7 +72,7 @@ class Aside extends Component {
         <style jsx>{`
           aside {
             height: calc(100vh - 60px);
-            background-color: #121420;
+            background-color: #191D2B;
             box-sizing: content-box;
           }
 

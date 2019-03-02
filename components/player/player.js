@@ -55,33 +55,35 @@ class Player extends React.Component {
       <div className="player">
         <Video currentVideo={this.state.videos[this.state.currentVideo]}
                forward={this.forward} />
-        <div className="controls">
-          <div className="skip control-group">
-            <div className="control-item">
-              <FontAwesomeIcon icon="backward"
-                               color="#F9F9F9"
-                               size="2x"
-                               onClick={this.back} />
+        <div className="controls-container">
+          <div className="controls">
+            <div className="skip control-group">
+              <div className="control-item">
+                <FontAwesomeIcon icon="backward"
+                                 color="#F9F9F9"
+                                 size="2x"
+                                 onClick={this.back} />
+              </div>
+              <div className="control-item">
+                <FontAwesomeIcon icon="forward"
+                                 color="#F9F9F9"
+                                 size="2x"
+                                 onClick={this.forward} />
+              </div>
             </div>
-            <div className="control-item">
-              <FontAwesomeIcon icon="forward"
-                               color="#F9F9F9"
-                               size="2x"
-                               onClick={this.forward} />
-            </div>
-          </div>
-          <div className="order control-group">
-            <div className="control-item">
-              <FontAwesomeIcon icon="random"
-                               color="#F9F9F9"
-                               size="2x"
-                               onClick={this.shuffle} />
-            </div>
-            <div className="control-item">
-              <FontAwesomeIcon icon="long-arrow-alt-right"
-                               color="#F9F9F9"
-                               size="2x"
-                               onClick={this.sort} />
+            <div className="order control-group">
+              <div className="control-item">
+                <FontAwesomeIcon icon="random"
+                                 color={!this.state.shuffled ? "#F9F9F9" : "#FF404E"}
+                                 size="2x"
+                                 onClick={this.shuffle} />
+              </div>
+              <div className="control-item">
+                <FontAwesomeIcon icon="long-arrow-alt-right"
+                                 color={this.state.shuffled ? "#F9F9F9" : "#FF404E"}
+                                 size="2x"
+                                 onClick={this.sort} />
+              </div>
             </div>
           </div>
         </div>
@@ -92,8 +94,12 @@ class Player extends React.Component {
                     playlistId={this.state.id} />
         </div>
         <style jsx>{`
-          .controls {
+          .controls-container {
             flex: 0 0 60px;
+            width: 100%;
+          }
+
+          .controls {
             display: flex;
             width: 250px;
             height: 60px;
@@ -126,14 +132,14 @@ class Player extends React.Component {
 
           .content-scroll::-webkit-scrollbar-track
           {
-            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-            background-color: #F5F5F5;
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0);
+            background-color: rgba(0,0,0,0);
           }
 
           .content-scroll::-webkit-scrollbar
           {
             width: 10px;
-            background-color: #F5F5F5;
+            background-color: rgba(0,0,0,0);
           }
 
           .content-scroll::-webkit-scrollbar-thumb
