@@ -163,6 +163,8 @@ export default class Index extends Component {
             	font-size: 100%;
             	font: inherit;
             	vertical-align: baseline;
+              color: #F9F9F9;
+              font-family: 'Noto Sans', 'sans-serif';
             }
         `}</style>
         <style jsx>{`

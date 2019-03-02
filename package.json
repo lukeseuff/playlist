@@ -32,7 +32,8 @@
     "next": "latest",
     "react": "^16.8.2",
     "react-dom": "^16.8.2",
-    "session-file-store": "^1.2.0"
+    "session-file-store": "^1.2.0",
+    "webfontloader": "^1.6.28"
   },
   "devDependencies": {
     "nodemon": "^1.18.10"

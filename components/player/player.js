@@ -59,13 +59,13 @@ class Player extends React.Component {
           <div className="skip control-group">
             <div className="control-item">
               <FontAwesomeIcon icon="backward"
-                               color="#dad8de"
+                               color="#F9F9F9"
                                size="2x"
                                onClick={this.back} />
             </div>
             <div className="control-item">
               <FontAwesomeIcon icon="forward"
-                               color="#dad8de"
+                               color="#F9F9F9"
                                size="2x"
                                onClick={this.forward} />
             </div>
@@ -73,13 +73,13 @@ class Player extends React.Component {
           <div className="order control-group">
             <div className="control-item">
               <FontAwesomeIcon icon="random"
-                               color="#dad8de"
+                               color="#F9F9F9"
                                size="2x"
                                onClick={this.shuffle} />
             </div>
             <div className="control-item">
               <FontAwesomeIcon icon="long-arrow-alt-right"
-                               color="#dad8de"
+                               color="#F9F9F9"
                                size="2x"
                                onClick={this.sort} />
             </div>
@@ -115,7 +115,7 @@ class Player extends React.Component {
             display: flex;
             flex: 1;
             flex-direction: column;
-            background-color: blue;
+            background-color: #121420;
             height: calc(100vh - 60px);
           }
 

@@ -44,7 +44,8 @@ class Search extends React.Component {
     return (
       <div className="container">
         <form onSubmit={this.handleSubmit}>
-          {/*<div className="icon">
+          {/* TODO: REMOVE OR USE THIS
+            <div className="icon">
             <FontAwesomeIcon icon="search" color="#dad8de" />
           </div>*/}
           <input type="text"
@@ -63,9 +64,12 @@ class Search extends React.Component {
 
             input {
               width: 100%;
-              padding: 5px 5px;
+              padding: 5px 7px;
               margin-left: -5px;
               border: 0;
+              background-color: #06070C;
+              border: 1px solid #4B4A5D;
+              color: #F9F9F9;
             }
         `}</style>
       </div>

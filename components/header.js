@@ -29,7 +29,7 @@ function Header (props) {
           height: 60px;
           width: 100%;
           top: 0;
-          background-color: #0f0e11;
+          background-color: #121420;
           display: flex;
           justify-content: space-between;
           align-self: center;

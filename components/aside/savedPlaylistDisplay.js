@@ -39,7 +39,8 @@ class SavedPlaylistDisplay extends React.Component {
         </div>
         <div className="save">
           <FontAwesomeIcon icon={[this.state.saved ? "fas" : "far", "heart"]}
-                           onClick={this.handleDeletePlaylist} />
+                           onClick={this.handleDeletePlaylist}
+                           color="#FF404E" />
         </div>
         <style jsx>{`
           .item {
@@ -65,7 +66,7 @@ class SavedPlaylistDisplay extends React.Component {
           .title {
             font-size: 14px;
             overflow: hidden;
-            max-height: 16px;
+            max-height: 18px;
           }
 
           .title:hover {

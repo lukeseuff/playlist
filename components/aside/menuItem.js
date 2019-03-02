@@ -15,7 +15,7 @@ class MenuItem extends Component {
     return (
     <div className="menu-item" onClick={this.handleClick}>
         <div className="menu-item-icon">
-          <FontAwesomeIcon icon={this.props.icon} color="#dad8de" size="lg" />
+          <FontAwesomeIcon icon={this.props.icon} color="#F9F9F9" size="lg" />
         </div>
         <div>
           <p>{this.props.text}</p>
