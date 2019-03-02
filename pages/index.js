@@ -12,7 +12,8 @@ var clientCredentials
 try {
   clientCredentials = require('../config/firebase/client')
 } catch(err) {
-  clientCredentials = JSON.parse(process.env.FIREBASE_CLIENT_CREDENTIALS)
+  const {publicRuntimeConfig} = getConfig()
+  clientCredentials = JSON.parse(publicRuntimeConfig.clientCredentials)
 }
 
 export default class Index extends Component {
