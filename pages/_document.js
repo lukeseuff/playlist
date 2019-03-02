@@ -10,7 +10,7 @@ class MyDocument extends Document {
     return (
       <html>
         <Head>
-          <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet" />
+          <link href="https://fonts.googleapis.com/css?family=Noto+Sans:300,400" rel="stylesheet" />
         </Head>
         <body>
           <Main />

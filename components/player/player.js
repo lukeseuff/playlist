@@ -51,6 +51,16 @@ class Player extends React.Component {
   }
 
   render() {
+    let playlistContent;
+    if (this.state.id === undefined) {
+      playlistContent = <p className="empty-text">change playlist order by clicking on the controls above!</p>
+    } else {
+      playlistContent = <Playlist videos={this.state.videos}
+                                  currentVideo={this.state.currentVideo}
+                                  selectVideo={this.selectVideo}
+                                  playlistId={this.state.id} />
+    }
+
     return (
       <div className="player">
         <Video currentVideo={this.state.videos[this.state.currentVideo]}
@@ -87,11 +97,8 @@ class Player extends React.Component {
             </div>
           </div>
         </div>
-        <div className="content-scroll">
-          <Playlist videos={this.state.videos}
-                    currentVideo={this.state.currentVideo}
-                    selectVideo={this.selectVideo}
-                    playlistId={this.state.id} />
+        <div className={"content-scroll playlist-container" + (this.state.id === undefined ? " empty-playlist" : "")}>
+          {playlistContent}
         </div>
         <style jsx>{`
           .controls-container {
@@ -123,6 +130,20 @@ class Player extends React.Component {
             flex-direction: column;
             background-color: #121420;
             height: calc(100vh - 60px);
+          }
+
+          .playlist-container {
+            flex: 1 1 0;
+          }
+
+          .empty-playlist {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+
+          .empty-text {
+            font-weight: 300;
           }
 
           .content-scroll {
