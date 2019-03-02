@@ -3,10 +3,17 @@ import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/firestore'
 import 'isomorphic-unfetch'
-import clientCredentials from '../config/firebase/client'
 import Header from '../components/header'
 import Aside from '../components/aside/aside'
 import Player from '../components/player/player'
+
+var clientCredentials
+
+try {
+  clientCredentials = require('../config/firebase/client')
+} catch(err) {
+  clientCredentials = JSON.parse(process.env.FIREBASE_CLIENT_CREDENTIALS)
+}
 
 export default class Index extends Component {
   constructor (props) {

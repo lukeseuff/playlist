@@ -6,15 +6,21 @@ const admin = require('firebase-admin')
 const session = require('express-session')
 const FileStore = require('session-file-store')(session)
 
-
 const port = process.env.PORT || 3000
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
 const handle = app.getRequestHandler()
 
+var serverCredentials
+try {
+  serverCredentials = require('./config/firebase/server')
+} catch(err) {
+  serverCredentials = JSON.parse(process.env.FIREBASE_SERVER_CREDENTIALS)
+}
+
 const firebase = admin.initializeApp(
   {
-    credential: admin.credential.cert(require('./config/firebase/server')),
+    credential: admin.credential.cert(serverCredentials),
     databaseURL: 'https://playlist-36d9e.firebaseio.com'
   },
   'server'
