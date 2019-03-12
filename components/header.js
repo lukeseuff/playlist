@@ -3,26 +3,22 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 function Header (props) {
   return (
     <header>
-      <div>
-        <button onClick={props.onSwitchAside}>
-          {props.showAside ? (
-            <FontAwesomeIcon icon="chevron-left" color="#dad8de" size="lg" />
-          ) : (
-            <FontAwesomeIcon icon="chevron-right" color="#dad8de" size="lg" />
-          )}
-        </button>
-      </div>
-      <div>
-        {props.loggedIn ? (
-          <button onClick={props.handleLogout}>
-            <FontAwesomeIcon icon="sign-out-alt" color="#dad8de" size="lg" />
-          </button>
+      <div className="button" onClick={props.onSwitchAside}>
+        {props.showAside ? (
+          <FontAwesomeIcon icon="chevron-left" color="#dad8de" size="lg" />
         ) : (
-          <button onClick={props.handleLogin}>
-            <FontAwesomeIcon icon="sign-in-alt" color="#dad8de" size="lg" />
-          </button>
+          <FontAwesomeIcon icon="chevron-right" color="#dad8de" size="lg" />
         )}
       </div>
+      {props.loggedIn ? (
+        <div className="button" onClick={props.handleLogout} className="button">
+          <FontAwesomeIcon icon="sign-out-alt" color="#dad8de" size="lg" />
+        </div>
+      ) : (
+        <div className="button" onClick={props.handleLogin} className="button">
+          <FontAwesomeIcon icon="sign-in-alt" color="#dad8de" size="lg" />
+        </div>
+      )}
       <style jsx>{`
         header {
           position: fixed;
@@ -35,21 +31,15 @@ function Header (props) {
           align-self: center;
         }
 
-        button {
-          padding: 0;
-          margin: 0;
-          border: 0;
+        .button {
+          display: flex;
+          align-items: center;
           width: 60px;
-          height: 100%;
-          background-color: rgba(0, 0, 0, 0);
+          justify-content: center;
         }
 
-        button:hover {
+        .button:hover {
           cursor: pointer;
-        }
-
-        button:focus {
-          outline: none;
         }
       `}</style>
     </header>

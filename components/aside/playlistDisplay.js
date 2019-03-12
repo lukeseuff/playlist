@@ -79,6 +79,8 @@ class PlaylistDisplay extends React.Component {
           .channel {
             font-size: 12px;
             margin-top: 5px;
+            margin-right: 45px;
+            overflow: hidden;
           }
 
           .channel:hover {

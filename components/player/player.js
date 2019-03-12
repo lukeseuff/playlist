@@ -2,6 +2,7 @@ import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Video from './video'
 import Playlist from './playlist'
+import OrderControls from './orderControls'
 import request from '../../lib/client/request'
 
 const playlist = require('../../lib/client/playlist')
@@ -12,13 +13,17 @@ class Player extends React.Component {
 
     this.state = {
       id: undefined,
-      shuffled: true,
+      order: 'shuffled',
       videos: [],
-      currentVideo: undefined
+      currentVideo: undefined,
+      // TODO(luke): video player should be hauled out and work robustly
+      playing: true
     }
 
     this.fetchPlaylist = this.fetchPlaylist.bind(this)
     this.shuffle = this.shuffle.bind(this)
+    this.sort = this.sort.bind(this)
+    this.reverse = this.reverse.bind(this)
     this.forward = this.forward.bind(this)
     this.back = this.back.bind(this)
     this.selectVideo = this.selectVideo.bind(this)
@@ -31,15 +36,12 @@ class Player extends React.Component {
   }
 
   shuffle = () => {
-    if (!this.state.shuffled) {
+    if (this.state.order !== 'shuffled') {
       this.setState(playlist.shuffle(this.state))
     }
   }
-  sort = () => {
-    if (this.state.shuffled) {
-      this.setState(playlist.sort(this.state))
-    }
-  }
+  sort = () => this.setState(playlist.sort(this.state))
+  reverse = () => this.setState(playlist.reverse(this.state))
   forward = () => this.setState(playlist.skipForward(this.state))
   back = () => this.setState(playlist.skipBack(this.state))
   selectVideo = (index) => this.setState(playlist.selectVideo(this.state, index))
@@ -75,26 +77,22 @@ class Player extends React.Component {
                                  onClick={this.back} />
               </div>
               <div className="control-item">
+                <FontAwesomeIcon icon="play"
+                                 color="#F9F9F9"
+                                 size="2x"
+                                 onClick={this.forward} />
+              </div>
+              <div className="control-item">
                 <FontAwesomeIcon icon="forward"
                                  color="#F9F9F9"
                                  size="2x"
                                  onClick={this.forward} />
               </div>
             </div>
-            <div className="order control-group">
-              <div className="control-item">
-                <FontAwesomeIcon icon="random"
-                                 color={!this.state.shuffled ? "#F9F9F9" : "#FF404E"}
-                                 size="2x"
-                                 onClick={this.shuffle} />
-              </div>
-              <div className="control-item">
-                <FontAwesomeIcon icon="long-arrow-alt-right"
-                                 color={this.state.shuffled ? "#F9F9F9" : "#FF404E"}
-                                 size="2x"
-                                 onClick={this.sort} />
-              </div>
-            </div>
+            <OrderControls order={this.state.order}
+                           reverse={this.reverse}
+                           shuffle={this.shuffle}
+                           sort={this.sort} />
           </div>
         </div>
         <div className={"content-scroll playlist-container" + (this.state.id === undefined ? " empty-playlist" : "")}>
@@ -108,7 +106,7 @@ class Player extends React.Component {
 
           .controls {
             display: flex;
-            width: 250px;
+            width: 350px;
             height: 60px;
             margin: 0 auto;
             justify-content: space-between;
