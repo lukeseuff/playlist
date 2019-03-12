@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import getConfig from 'next/config'
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/firestore'
@@ -12,7 +13,8 @@ var clientCredentials
 try {
   clientCredentials = require('../config/firebase/client')
 } catch(err) {
-  clientCredentials = JSON.parse(process.env.FIREBASE_CLIENT_CREDENTIALS)
+  const {publicRuntimeConfig} = getConfig()
+  clientCredentials = publicRuntimeConfig.clientCredentials
 }
 
 export default class Index extends Component {
