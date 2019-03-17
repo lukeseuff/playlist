@@ -14,19 +14,22 @@ class OrderControls extends React.Component {
           <OrderButton icon="long-arrow-alt-left"
                        type="reversed"
                        order={this.props.order}
-                       handleClick={this.props.reverse} />
+                       setOrder={this.props.reverse}
+                       setToast={this.props.setToast} />
         </div>
         <div className="control-item">
           <OrderButton icon="random"
                        type="shuffled"
                        order={this.props.order}
-                       handleClick={this.props.shuffle} />
+                       setOrder={this.props.shuffle}
+                       setToast={this.props.setToast} />
         </div>
         <div className="control-item">
           <OrderButton icon="long-arrow-alt-right"
                        type="sorted"
                        order={this.props.order}
-                       handleClick={this.props.sort} />
+                       setOrder={this.props.sort}
+                       setToast={this.props.setToast} />
         </div>
         <style jsx>{`
           .control-group {

@@ -23,7 +23,9 @@ export default class Index extends Component {
     this.state = {
       user: this.props.user,
       playlists: this.props.playlists || {},
-      showAside: true
+      showAside: true,
+      toast: 'toasty',
+      toastCount: 0
     }
 
     this.onSelectPlaylist = this.onSelectPlaylist.bind(this)
@@ -34,6 +36,8 @@ export default class Index extends Component {
     this.onSavePlaylist = this.onSavePlaylist.bind(this)
     this.onDeletePlaylist = this.onDeletePlaylist.bind(this)
     this.onSwitchAside = this.onSwitchAside.bind(this)
+    this.setToast = this.setToast.bind(this)
+    this.closeToast = this.closeToast.bind(this)
   }
 
   componentDidMount() {
@@ -134,7 +138,17 @@ export default class Index extends Component {
     this.setState({ showAside: !this.state.showAside })
   }
 
+  closeToast () {
+    this.setState({ toastCount: this.state.toastCount - 1 })
+  }
+
+  setToast (message) {
+    this.setState({ toast: message, toastCount: this.state.toastCount + 1 })
+    setTimeout(this.closeToast, 3000)
+  }
+
   render() {
+    const hide = this.state.toastCount === 0 ? 'hide' : ''
     return (
       <div>
         <Header handleLogin={this.handleLogin}
@@ -149,9 +163,12 @@ export default class Index extends Component {
                  savedPlaylists={Object.keys(this.state.playlists).map((id) => {
                    return Object.assign({id: id}, this.state.playlists[id])
                  })}
-                 showAside={this.state.showAside} />
-          <Player currentPlaylist={this.state.playlistId} />
+                 showAside={this.state.showAside}
+                 setToast={this.setToast} />
+          <Player currentPlaylist={this.state.playlistId}
+                  setToast={this.setToast} />
         </div>
+        <div className={hide} id="toast"><p>{this.state.toast}</p></div>
         <style jsx global>{`
             html, body, div, span, applet, object, iframe,
             h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -180,6 +197,25 @@ export default class Index extends Component {
             .content {
               display: flex;
               margin-top: 60px;
+            }
+
+            #toast {
+              position: fixed;
+              right: 20px;
+              bottom: 20px;
+              padding: 16px 22px;
+              border-radius: 8px;
+              background-color: #D9DBE3;
+              text-transform: uppercase;
+            }
+
+            #toast p {
+              color: #121420;
+              font-size: 16px;
+            }
+
+            .hide {
+              display: none;
             }
         `}</style>
       </div>

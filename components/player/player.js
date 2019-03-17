@@ -1,8 +1,8 @@
 import React from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Video from './video'
 import Playlist from './playlist'
 import OrderControls from './orderControls'
+import PlayerControls from './playerControls'
 import request from '../../lib/client/request'
 
 const playlist = require('../../lib/client/playlist')
@@ -27,6 +27,7 @@ class Player extends React.Component {
     this.forward = this.forward.bind(this)
     this.back = this.back.bind(this)
     this.selectVideo = this.selectVideo.bind(this)
+    this.pauseUnpause = this.pauseUnpause.bind(this)
   }
 
   componentDidUpdate(prevProps) {
@@ -45,6 +46,7 @@ class Player extends React.Component {
   forward = () => this.setState(playlist.skipForward(this.state))
   back = () => this.setState(playlist.skipBack(this.state))
   selectVideo = (index) => this.setState(playlist.selectVideo(this.state, index))
+  pauseUnpause = () => this.setState({ playing: !this.state.playing })
 
   async fetchPlaylist(id) {
     request.playlistGet(window.location.origin, id, (videos) => {
@@ -55,7 +57,7 @@ class Player extends React.Component {
   render() {
     let playlistContent;
     if (this.state.id === undefined) {
-      playlistContent = <p className="empty-text">change playlist order by clicking on the controls above!</p>
+      playlistContent = <p className="empty-text">Search for playlists to get started!</p>
     } else {
       playlistContent = <Playlist videos={this.state.videos}
                                   currentVideo={this.state.currentVideo}
@@ -66,33 +68,19 @@ class Player extends React.Component {
     return (
       <div className="player">
         <Video currentVideo={this.state.videos[this.state.currentVideo]}
-               forward={this.forward} />
+               forward={this.forward}
+               playing={this.state.playing} />
         <div className="controls-container">
           <div className="controls">
-            <div className="skip control-group">
-              <div className="control-item">
-                <FontAwesomeIcon icon="backward"
-                                 color="#F9F9F9"
-                                 size="2x"
-                                 onClick={this.back} />
-              </div>
-              <div className="control-item">
-                <FontAwesomeIcon icon="play"
-                                 color="#F9F9F9"
-                                 size="2x"
-                                 onClick={this.forward} />
-              </div>
-              <div className="control-item">
-                <FontAwesomeIcon icon="forward"
-                                 color="#F9F9F9"
-                                 size="2x"
-                                 onClick={this.forward} />
-              </div>
-            </div>
+            <PlayerControls back={this.back}
+                            forward={this.forward}
+                            pauseUnpause={this.pauseUnpause}
+                            playing={this.state.playing} />
             <OrderControls order={this.state.order}
                            reverse={this.reverse}
                            shuffle={this.shuffle}
-                           sort={this.sort} />
+                           sort={this.sort}
+                           setToast={this.props.setToast} />
           </div>
         </div>
         <div className={"content-scroll playlist-container" + (this.state.id === undefined ? " empty-playlist" : "")}>
@@ -111,14 +99,6 @@ class Player extends React.Component {
             margin: 0 auto;
             justify-content: space-between;
             align-items: center;
-          }
-
-          .control-group {
-            display: flex;
-          }
-
-          .control-item {
-            padding: 0 10px;
           }
 
           .player {

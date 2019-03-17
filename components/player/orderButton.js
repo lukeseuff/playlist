@@ -4,6 +4,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 class OrderButton extends React.Component {
   constructor(props) {
     super(props)
+
+    this.handleClick = this.handleClick.bind(this)
+  }
+
+  handleClick () {
+    this.props.setOrder(this.props.type)
+    this.props.setToast(this.props.type)
   }
 
   render () {
@@ -12,7 +19,7 @@ class OrderButton extends React.Component {
       <FontAwesomeIcon icon={this.props.icon}
                        color={color}
                        size="2x"
-                       onClick={this.props.handleClick} />
+                       onClick={this.handleClick} />
     )
   }
 }
