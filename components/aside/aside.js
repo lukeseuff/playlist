@@ -13,7 +13,11 @@ class Aside extends Component {
   }
 
   onSelectMenuItem (item) {
-    this.setState({ menuSelection: item })
+    if (!this.props.loggedIn && item == 'bookmarked') {
+      this.props.setToast('login to bookmark items')
+    } else {
+      this.setState({ menuSelection: item })
+    }
   }
 
   displayPlaylists (playlists) {
@@ -28,7 +32,9 @@ class Aside extends Component {
         return <PlaylistDisplay {...playlist}
                                 key={playlist.id}
                                 onSelectPlaylist={this.props.onSelectPlaylist}
-                                onSavePlaylist={this.props.onSavePlaylist} />
+                                onSavePlaylist={this.props.onSavePlaylist}
+                                setToast={this.props.setToast}
+                                loggedIn={this.props.loggedIn} />
       })
     } else if (this.state.menuSelection === 'bookmarked') {
       display = this.props.savedPlaylists.map((playlist) => {

@@ -16,11 +16,15 @@ class PlaylistDisplay extends React.Component {
 
   handleSavePlaylist(event) {
     event.preventDefault()
-    this.setState({ saved: true })
-    this.props.onSavePlaylist(this.props.id,
-                              this.props.title,
-                              this.props.channel,
-                              this.props.thumbnail)
+    if (this.props.loggedIn) {
+      this.setState({ saved: true })
+      this.props.onSavePlaylist(this.props.id,
+                                this.props.title,
+                                this.props.channel,
+                                this.props.thumbnail)
+    } else {
+      this.props.setToast('must be logged in to save playlists')
+    }
   }
 
   render () {

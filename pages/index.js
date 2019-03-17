@@ -102,6 +102,7 @@ export default class Index extends Component {
 
   handleLogout () {
     firebase.auth().signOut()
+    this.setState({ playlists: {} })
   }
 
   onSelectPlaylist (id) {
@@ -160,6 +161,7 @@ export default class Index extends Component {
           <Aside onSelectPlaylist={this.onSelectPlaylist}
                  onSavePlaylist={this.onSavePlaylist}
                  onDeletePlaylist={this.onDeletePlaylist}
+                 loggedIn={this.state.user !== null}
                  savedPlaylists={Object.keys(this.state.playlists).map((id) => {
                    return Object.assign({id: id}, this.state.playlists[id])
                  })}
