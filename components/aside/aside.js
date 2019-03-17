@@ -76,6 +76,12 @@ class Aside extends Component {
         */}
 
         <style jsx>{`
+          @media screen and (max-width: 800px) {
+            aside {
+              position: absolute;
+            }
+          }
+
           aside {
             height: calc(100vh - 60px);
             background-color: #191D2B;

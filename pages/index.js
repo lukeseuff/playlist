@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Head from 'next/head'
 import getConfig from 'next/config'
 import firebase from 'firebase/app'
 import 'firebase/auth'
@@ -152,6 +153,9 @@ export default class Index extends Component {
     const hide = this.state.toastCount === 0 ? 'hide' : ''
     return (
       <div>
+        <Head>
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+        </Head>
         <Header handleLogin={this.handleLogin}
                 handleLogout={this.handleLogout}
                 loggedIn={this.state.user !== null}
