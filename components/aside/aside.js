@@ -45,10 +45,10 @@ class Aside extends Component {
       })
     } else if (this.state.menuSelection === 'about') {
       // TODO(luke): Pull this out and put a real about in its place
-      const tempStyle = {padding: '0 10px'}
+      const tempStyle = {padding: '0 20px'}
       display = <p style={tempStyle}>Small playlist app that I'm currently working on. Most of the functionality needs to be rehauled and the design needs to be reworked. However, its core usage its functional at the moment.</p>
     } else if (this.state.menuSelection === 'settings') {
-      const tempStyle = {padding: '0 10px'}
+      const tempStyle = {padding: '0 20px'}
       display = <p style={tempStyle}>No settings at the moment!</p>
     }
 
