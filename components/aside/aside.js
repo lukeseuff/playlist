@@ -65,15 +65,6 @@ class Aside extends Component {
         <div className="menu-display">
           {display}
         </div>
-        {/* this.props.showSaved ? (
-            <SavedList onSelectPlaylist={this.props.onSelectPlaylist}
-                    onDeletePlaylist={this.props.onDeletePlaylist}
-                    savedPlaylists={this.props.savedPlaylists} />
-          ) : (
-            <Search onSelectPlaylist={this.props.onSelectPlaylist}
-                    onSavePlaylist={this.props.onSavePlaylist} />
-          )
-        */}
 
         <style jsx>{`
           @media screen and (max-width: 800px) {
