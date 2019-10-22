@@ -154,8 +154,6 @@ export default class Index extends Component {
     return (
       <div>
         <Head>
-          // Global site tag (gtag.js) - Google Analytics
-          <script async src="https://www.googletagmanager.com/gtag/js?id=UA-140398584-1"></script>
           <meta name="viewport" content="width=device-width, initial-scale=1" />
         </Head>
         <Header handleLogin={this.handleLogin}
