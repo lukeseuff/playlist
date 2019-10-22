@@ -48,20 +48,10 @@ class Aside extends Component {
                                      onSelectPlaylist={this.props.onSelectPlaylist}
                                      onDeletePlaylist={this.props.onDeletePlaylist} />
       })
-<<<<<<< HEAD
-    } else if (this.state.menuSelection === 'about') {
-      // TODO(luke): Pull this out and put a real about in its place
-      const tempStyle = {padding: '0 20px'}
-      display = <p style={tempStyle}>Small playlist app that I'm currently working on. Most of the functionality needs to be rehauled and the design needs to be reworked. However, its core usage its functional at the moment.</p>
-    } else if (this.state.menuSelection === 'settings') {
-      const tempStyle = {padding: '0 20px'}
-      display = <p style={tempStyle}>No settings at the moment!</p>
-=======
     } else if (this.state.menuSelection === 'settings') {
       display = <p style={{margin: '20px'}}>Some basic settings will be added soon.</p>
     } else if (this.state.menuSelection === 'about') {
       display = <p style={{margin: '20px'}}>A small playlist app to replace YouTube's.</p>
->>>>>>> dev
     }
 
     return (
