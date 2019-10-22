@@ -2,7 +2,12 @@ import React from 'react'
 import App, { Container } from 'next/app'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPause, faPlay, faLongArrowAltRight, faLongArrowAltLeft, faBackward, faForward, faRandom, faHeart as fasHeart, faSearch, faChevronLeft, faChevronRight, faSignInAlt, faSignOutAlt, faHandHoldingHeart, faCog, faQuestion } from '@fortawesome/free-solid-svg-icons'
+import {
+  faPause, faPlay, faLongArrowAltRight, faLongArrowAltLeft, faBackward,
+  faForward, faRandom, faHeart as fasHeart, faSearch, faChevronLeft,
+  faChevronRight, faSignInAlt, faSignOutAlt, faHandHoldingHeart,
+  faCog, faQuestion
+} from '@fortawesome/free-solid-svg-icons'
 import { faHeart as farHeart } from '@fortawesome/free-regular-svg-icons'
 
 library.add(faBackward, faForward, faRandom, faLongArrowAltLeft, faLongArrowAltRight)

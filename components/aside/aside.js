@@ -7,7 +7,12 @@ import SavedPlaylistDisplay from './savedPlaylistDisplay'
 class Aside extends Component {
   constructor (props) {
     super(props)
-    this.state = { menuSelection: 'bookmarked', playlists: [] }
+
+    this.state = {
+      menuSelection: 'bookmarked',
+      playlists: []
+    }
+
     this.onSelectMenuItem = this.onSelectMenuItem.bind(this)
     this.displayPlaylists = this.displayPlaylists.bind(this)
   }
@@ -25,8 +30,8 @@ class Aside extends Component {
   }
 
   render () {
-    let display;
-
+    // TODO: Move this into a separate component.
+    let display
     if (this.state.menuSelection === 'search') {
       display = this.state.playlists.map((playlist) => {
         return <PlaylistDisplay {...playlist}
@@ -43,6 +48,7 @@ class Aside extends Component {
                                      onSelectPlaylist={this.props.onSelectPlaylist}
                                      onDeletePlaylist={this.props.onDeletePlaylist} />
       })
+<<<<<<< HEAD
     } else if (this.state.menuSelection === 'about') {
       // TODO(luke): Pull this out and put a real about in its place
       const tempStyle = {padding: '0 20px'}
@@ -50,6 +56,12 @@ class Aside extends Component {
     } else if (this.state.menuSelection === 'settings') {
       const tempStyle = {padding: '0 20px'}
       display = <p style={tempStyle}>No settings at the moment!</p>
+=======
+    } else if (this.state.menuSelection === 'settings') {
+      display = <p style={{margin: '20px'}}>Some basic settings will be added soon.</p>
+    } else if (this.state.menuSelection === 'about') {
+      display = <p style={{margin: '20px'}}>A small playlist app to replace YouTube's.</p>
+>>>>>>> dev
     }
 
     return (
@@ -72,15 +84,6 @@ class Aside extends Component {
         <div className="menu-display">
           {display}
         </div>
-        {/* this.props.showSaved ? (
-            <SavedList onSelectPlaylist={this.props.onSelectPlaylist}
-                    onDeletePlaylist={this.props.onDeletePlaylist}
-                    savedPlaylists={this.props.savedPlaylists} />
-          ) : (
-            <Search onSelectPlaylist={this.props.onSelectPlaylist}
-                    onSavePlaylist={this.props.onSavePlaylist} />
-          )
-        */}
 
         <style jsx>{`
           @media screen and (max-width: 800px) {

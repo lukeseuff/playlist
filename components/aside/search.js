@@ -5,6 +5,7 @@ import request from '../../lib/client/request'
 class Search extends React.Component {
   constructor(props) {
     super(props)
+    
     this.state = {value: '', keywordResults: [], idResults: []};
 
     this.handleChange = this.handleChange.bind(this)
@@ -44,10 +45,6 @@ class Search extends React.Component {
     return (
       <div className="container">
         <form onSubmit={this.handleSubmit}>
-          {/* TODO: REMOVE OR USE THIS
-            <div className="icon">
-            <FontAwesomeIcon icon="search" color="#dad8de" />
-          </div>*/}
           <input type="text"
                  value={this.state.value}
                  onChange={this.handleChange}

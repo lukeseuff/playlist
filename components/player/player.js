@@ -16,7 +16,6 @@ class Player extends React.Component {
       order: 'shuffled',
       videos: [],
       currentVideo: undefined,
-      // TODO(luke): video player should be hauled out and work robustly
       playing: true
     }
 
@@ -31,11 +30,13 @@ class Player extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
+    // Load new playlist
     if (this.props.currentPlaylist !== prevProps.currentPlaylist) {
       this.fetchPlaylist(this.props.currentPlaylist)
     }
   }
 
+  // Player controls
   shuffle = () => {
     if (this.state.order !== 'shuffled') {
       this.setState(playlist.shuffle(this.state))
@@ -67,7 +68,8 @@ class Player extends React.Component {
 
     return (
       <div className="player">
-        <Video currentVideo={this.state.videos[this.state.currentVideo]}
+        <Video pauseUnpause={this.pauseUnpause}
+               currentVideo={this.state.videos[this.state.currentVideo]}
                forward={this.forward}
                playing={this.state.playing} />
         <div className="controls-container">
@@ -83,7 +85,8 @@ class Player extends React.Component {
                            setToast={this.props.setToast} />
           </div>
         </div>
-        <div className={"content-scroll playlist-container" + (this.state.id === undefined ? " empty-playlist" : "")}>
+        <div className={"content-scroll playlist-container" +
+                        (this.state.id === undefined ? " empty-playlist" : "")}>
           {playlistContent}
         </div>
         <style jsx>{`
