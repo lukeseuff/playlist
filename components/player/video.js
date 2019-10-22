@@ -9,7 +9,6 @@ class Video extends React.Component {
 
   async loadVideoPlayer () {
     let tag = document.createElement('script')
-
     tag.src = "https://www.youtube.com/iframe_api"
     let firstScriptTag = document.getElementsByTagName('script')[0]
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag)
@@ -27,14 +26,20 @@ class Video extends React.Component {
       })
     }
 
-
     window['onPlayerError'] = (event) => {
       this.props.forward()
     }
 
     window['onPlayerStateChange'] = (event) => {
+      // Skip to next video
       if (event.data == YT.PlayerState.ENDED) {
         this.props.forward()
+      }
+      if (event.data == YT.PlayerState.PAUSED && this.props.playing) {
+        this.props.pauseUnpause()
+      }
+      if (event.data == YT.PlayerState.PLAYING && !this.props.playing) {
+        this.props.pauseUnpause()
       }
     }
   }
