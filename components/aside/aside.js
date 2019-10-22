@@ -7,7 +7,12 @@ import SavedPlaylistDisplay from './savedPlaylistDisplay'
 class Aside extends Component {
   constructor (props) {
     super(props)
-    this.state = { menuSelection: 'bookmarked', playlists: [] }
+
+    this.state = {
+      menuSelection: 'bookmarked',
+      playlists: []
+    }
+
     this.onSelectMenuItem = this.onSelectMenuItem.bind(this)
     this.displayPlaylists = this.displayPlaylists.bind(this)
   }
@@ -25,8 +30,8 @@ class Aside extends Component {
   }
 
   render () {
-    let display;
-
+    // TODO: Move this into a separate component.
+    let display
     if (this.state.menuSelection === 'search') {
       display = this.state.playlists.map((playlist) => {
         return <PlaylistDisplay {...playlist}
@@ -43,6 +48,10 @@ class Aside extends Component {
                                      onSelectPlaylist={this.props.onSelectPlaylist}
                                      onDeletePlaylist={this.props.onDeletePlaylist} />
       })
+    } else if (this.state.menuSelection === 'settings') {
+      display = <p style={{margin: '20px'}}>Some basic settings will be added soon.</p>
+    } else if (this.state.menuSelection === 'about') {
+      display = <p style={{margin: '20px'}}>A small playlist app to replace YouTube's.</p>
     }
 
     return (
