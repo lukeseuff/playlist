@@ -16,7 +16,6 @@ class Player extends React.Component {
       order: 'shuffled',
       videos: [],
       currentVideo: undefined,
-      // TODO(luke): video player should be hauled out and work robustly
       playing: true
     }
 
@@ -86,7 +85,8 @@ class Player extends React.Component {
                            setToast={this.props.setToast} />
           </div>
         </div>
-        <div className={"content-scroll playlist-container" + (this.state.id === undefined ? " empty-playlist" : "")}>
+        <div className={"content-scroll playlist-container" +
+                        (this.state.id === undefined ? " empty-playlist" : "")}>
           {playlistContent}
         </div>
         <style jsx>{`
