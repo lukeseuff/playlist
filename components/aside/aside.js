@@ -119,6 +119,7 @@ class Aside extends Component {
 
           .hide {
             width: 0;
+            display: none;
           }
 
           .content-scroll {
