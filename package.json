@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "\"# playlist\"",
   "main": "server.js",
+  "engines": {
+    "node": "10.x"
+  },
   "scripts": {
     "dev": "nodemon server.js -w server.js lib/server routes",
     "build": "next build",
