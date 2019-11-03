@@ -5,12 +5,13 @@ import request from '../../lib/client/request'
 class Search extends React.Component {
   constructor(props) {
     super(props)
-    
+
     this.state = {value: '', keywordResults: [], idResults: []};
 
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.listSearchResults = this.listSearchResults.bind(this)
+    this.handleClick = this.handleClick.bind(this)
   }
 
   async listSearchResults(query) {
@@ -41,6 +42,11 @@ class Search extends React.Component {
     this.props.onSelectMenuItem('search')
   }
 
+  handleClick(event) {
+    event.preventDefault()
+    this.props.onSelectMenuItem('search')
+  }
+
   render() {
     return (
       <div className="container">
@@ -48,6 +54,7 @@ class Search extends React.Component {
           <input type="text"
                  value={this.state.value}
                  onChange={this.handleChange}
+                 onClick={this.handleClick}
                  placeholder="search" />
         </form>
         <style jsx>{`
