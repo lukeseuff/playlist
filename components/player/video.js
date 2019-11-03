@@ -54,9 +54,15 @@ class Video extends React.Component {
         || (this.props.shuffled !== prevProps.shuffled
             && this.props.currentVideo === 0)) {
       this.changeVideo(this.props.currentVideo.id)
+      this.state.player.playVideo()
+      this.setState({'playing': true})
     }
-    if (this.props.playing !== prevProps.playing) {
+    else if (this.props.playing !== prevProps.playing) {
+      if (this.props.playing) {
         this.state.player.playVideo()
+      } else {
+        this.state.player.pauseVideo()
+      }
     }
   }
 
