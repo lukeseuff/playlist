@@ -36,10 +36,13 @@ class Video extends React.Component {
         this.props.forward()
       }
       if (event.data == YT.PlayerState.PAUSED && this.props.playing) {
-        this.props.pauseUnpause()
+        this.props.pause()
       }
       if (event.data == YT.PlayerState.PLAYING && !this.props.playing) {
-        this.props.pauseUnpause()
+        this.props.play()
+      }
+      if (event.data == YT.PlayerState.CUED) {
+        this.props.play()
       }
     }
   }
@@ -50,25 +53,24 @@ class Video extends React.Component {
 
   componentDidUpdate(prevProps) {
     // Video changed or shuffled/ordered entire playlist
-    if (this.props.currentVideo !== prevProps.currentVideo
-        || (this.props.shuffled !== prevProps.shuffled
-            && this.props.currentVideo === 0)) {
-      this.changeVideo(this.props.currentVideo.id)
-      this.state.player.playVideo()
-      this.setState({'playing': true})
-    }
-    else if (this.props.playing !== prevProps.playing) {
+    if (this.props.playing !== prevProps.playing) {
       if (this.props.playing) {
         this.state.player.playVideo()
       } else {
         this.state.player.pauseVideo()
       }
     }
+    if (this.props.currentVideo !== prevProps.currentVideo
+        || (this.props.shuffled !== prevProps.shuffled
+            && this.props.currentVideo === 0)) {
+      this.changeVideo(this.props.currentVideo.id)
+      this.state.player.playVideo()
+      this.props.play()
+    }
   }
 
   changeVideo(video) {
     this.state.player.cueVideoById(video)
-    this.state.player.playVideo()
   }
 
   render () {

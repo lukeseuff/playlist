@@ -25,6 +25,8 @@ class Player extends React.Component {
     this.reverse = this.reverse.bind(this)
     this.forward = this.forward.bind(this)
     this.back = this.back.bind(this)
+    this.play = this.play.bind(this)
+    this.pause = this.pause.bind(this)
     this.selectVideo = this.selectVideo.bind(this)
     this.pauseUnpause = this.pauseUnpause.bind(this)
   }
@@ -46,6 +48,8 @@ class Player extends React.Component {
   reverse = () => this.setState(playlist.reverse(this.state))
   forward = () => this.setState(playlist.skipForward(this.state))
   back = () => this.setState(playlist.skipBack(this.state))
+  play = () => this.setState({'playing': true})
+  pause = () => this.setState({'playing': false})
   selectVideo = (index) => this.setState(playlist.selectVideo(this.state, index))
   pauseUnpause = () => this.setState({ playing: !this.state.playing })
 
@@ -72,6 +76,8 @@ class Player extends React.Component {
         <Video pauseUnpause={this.pauseUnpause}
                currentVideo={this.state.videos[this.state.currentVideo]}
                forward={this.forward}
+               play={this.play}
+               pause={this.pause}
                playing={this.state.playing} />
         <div className="controls-container">
           <div className="controls">
