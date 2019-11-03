@@ -1,6 +1,7 @@
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
+// NOTE(Luke): This is going to change in the future
 class PlaylistList extends React.Component {
   constructor(props) {
     super(props)

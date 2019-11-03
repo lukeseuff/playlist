@@ -56,6 +56,7 @@ class Player extends React.Component {
   }
 
   render() {
+    // TODO(Luke): This shouldn't be here
     let playlistContent;
     if (this.state.id === undefined) {
       playlistContent = <p className="empty-text">Search for playlists to get started!</p>

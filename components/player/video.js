@@ -56,11 +56,7 @@ class Video extends React.Component {
       this.changeVideo(this.props.currentVideo.id)
     }
     if (this.props.playing !== prevProps.playing) {
-      if (this.props.playing) {
         this.state.player.playVideo()
-      } else {
-        this.state.player.pauseVideo()
-      }
     }
   }
 
